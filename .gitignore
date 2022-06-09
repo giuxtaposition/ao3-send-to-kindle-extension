@@ -1,0 +1,7 @@
+/node_modules/
+/public/build/
+/public/links.json
+/public/web-ext-artifacts
+/public/.web-extension-id
+
+.DS_Store
