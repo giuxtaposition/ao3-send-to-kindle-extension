@@ -1,5 +1,16 @@
 {
     "extends": "@tsconfig/svelte/tsconfig.json",
+    "module": "es6",
+    "moduleResolution": "node",
+    "compilerOptions": {
+        "target": "es6",
+        "lib": ["es5", "es6", "dom", "dom.iterable"],
+        "types": [
+            "vitest/globals",
+            "@testing-library/jest-dom",
+            "@types/chrome"
+        ]
+    },
 
     "include": ["src/**/*"],
     "exclude": ["node_modules/*", "public/*"]
