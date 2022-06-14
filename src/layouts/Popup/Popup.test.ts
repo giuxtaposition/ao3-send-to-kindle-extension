@@ -47,6 +47,8 @@ describe("Popup", () => {
             "email",
             "another@email.com"
         )
+
+        expect(screen.getByRole("alert")).toHaveClass("success")
     })
 
     test("on enter, saves the email to local storage", async () => {
@@ -63,5 +65,6 @@ describe("Popup", () => {
             "email",
             "another@email.com"
         )
+        expect(screen.getByRole("alert")).toHaveClass("success")
     })
 })

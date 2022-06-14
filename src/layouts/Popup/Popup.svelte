@@ -1,8 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte"
+    import Alert from "../../components/Alert/Alert.svelte"
     import { localStore } from "../../store/store"
 
     let email = ""
+
+    let alertMessage = ""
+    let alertType: "success" | "error" = "success"
+    let alertIsVisible = false
 
     onMount(async () => {
         const storedInfo = await localStore.get("email")
@@ -10,8 +15,20 @@
     })
 
     const updateEmail = async () => {
-        await localStore.set("email", email)
-        //ADD SUCCESS MESSAGE
+        try {
+            await localStore.set("email", email)
+            alertType = "success"
+            alertMessage = "Email updated successfully"
+            alertIsVisible = true
+        } catch (e) {
+            alertMessage = "Error updating email"
+            alertType = "error"
+            alertIsVisible = true
+        } finally {
+            setTimeout(() => {
+                alertIsVisible = false
+            }, 3000)
+        }
     }
 
     const onKeyPress = async e => {
@@ -20,6 +37,7 @@
 </script>
 
 <div id="popup-content">
+    <Alert message={alertMessage} type={alertType} isVisible={alertIsVisible} />
     <input
         type="email"
         placeholder="Email"
@@ -31,7 +49,7 @@
 
 <style lang="sass">
 #popup-content
-    width: 15rem
+    width: 20rem
     display: flex
     flex-direction: column
     column-gap: 1rem
