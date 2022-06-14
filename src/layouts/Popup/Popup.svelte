@@ -11,6 +11,7 @@
 
     const updateEmail = async () => {
         await localStore.set("email", email)
+        //ADD SUCCESS MESSAGE
     }
 
     const onKeyPress = async e => {

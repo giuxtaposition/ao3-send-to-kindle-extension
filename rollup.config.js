@@ -36,7 +36,7 @@ function serve() {
 
 export default [
     {
-        input: "src/components/Popup/popup.ts",
+        input: "src/layouts/Popup/popup.ts",
         output: {
             sourcemap: true,
             format: "iife",
