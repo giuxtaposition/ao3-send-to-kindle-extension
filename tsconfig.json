@@ -5,11 +5,7 @@
     "compilerOptions": {
         "target": "es6",
         "lib": ["es5", "es6", "dom", "dom.iterable"],
-        "types": [
-            "vitest/globals",
-            "@testing-library/jest-dom",
-            "@types/chrome"
-        ]
+        "types": ["vitest/globals", "@testing-library/jest-dom"]
     },
 
     "include": ["src/**/*"],
