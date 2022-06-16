@@ -3,12 +3,24 @@
     "name": "ao3-send-to-kindle",
     "version": "1.0.0",
     "description": "A simple extension to send AO3 stories to your Kindle",
-    "permissions": ["storage"],
+    "permissions": ["storage", "https://ao3-send-to-kindle.herokuapp.com/*"],
     "browser_action": {
         "default_icon": {
             "19": "Archive_of_Our_Own_logo.png",
             "38": "Archive_of_Our_Own_logo.png"
         },
         "default_popup": "popup.html"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://archiveofourown.org/works",
+                "https://archiveofourown.org/works?*",
+                "https://archiveofourown.org/*/works",
+                "https://archiveofourown.org/*/works?*"
+            ],
+            "js": ["build/works.js"],
+            "css": ["build/works.css"]
+        }
+    ]
 }

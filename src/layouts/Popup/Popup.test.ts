@@ -15,7 +15,7 @@ describe("Popup", () => {
     })
 
     test("has an input for email and a save button", () => {
-        localStore.get = vi.fn().mockReturnValue({ email: "" })
+        localStore.get = vi.fn().mockReturnValue("")
         render(Popup)
 
         expect(screen.getByRole("textbox")).toBeInTheDocument()
@@ -23,7 +23,7 @@ describe("Popup", () => {
     })
 
     test("loads the email from local storage", async () => {
-        localStore.get = vi.fn().mockReturnValue({ email: "an@email.com" })
+        localStore.get = vi.fn().mockReturnValue("an@email.com")
 
         render(Popup)
 
@@ -33,7 +33,7 @@ describe("Popup", () => {
     })
 
     test("on save click, saves the email to local storage", async () => {
-        localStore.get = vi.fn().mockReturnValue({ email: "" })
+        localStore.get = vi.fn().mockReturnValue("")
         localStore.set = vi.fn()
 
         render(Popup)
@@ -52,7 +52,7 @@ describe("Popup", () => {
     })
 
     test("on enter, saves the email to local storage", async () => {
-        localStore.get = vi.fn().mockReturnValue({ email: "" })
+        localStore.get = vi.fn().mockReturnValue("")
         localStore.set = vi.fn()
 
         render(Popup)

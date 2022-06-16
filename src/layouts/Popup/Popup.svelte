@@ -10,8 +10,7 @@
     let alertIsVisible = false
 
     onMount(async () => {
-        const storedInfo = await localStore.get("email")
-        email = storedInfo[Object.keys(storedInfo)[0]]
+        email = await localStore.get("email")
     })
 
     const updateEmail = async () => {
