@@ -1,11 +1,15 @@
 <script lang="ts">
+    import { fade } from "svelte/transition"
     import { localStore } from "../../store/store"
+    import Spinner from "../Spinner/Spinner.svelte"
 
     export let workUrl
-    let isVisible = false
+    let isTooltipVisible = false
+    let isSpinnerVisible = false
 
     const sendToKindle = async () => {
         try {
+            isSpinnerVisible = true
             const email = await localStore.get("email")
             if (email) {
                 const response = await fetch(
@@ -32,38 +36,50 @@
             }
         } catch (e) {
             console.error(e)
+        } finally {
+            isSpinnerVisible = false
         }
     }
 </script>
 
-<div
-    class="send-to-kindle-container"
-    aria-describedby="send-to-kindle-tooltip"
-    role="button"
-    on:mouseenter={() => (isVisible = true)}
-    on:mouseleave={() => (isVisible = false)}
-    on:click={sendToKindle}
->
-    <svg
-        viewBox="0 0 24 24"
-        width="24"
-        height="24"
-        stroke="currentColor"
-        stroke-width="2"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="css-i6dzq1"
-        ><line x1="22" y1="2" x2="11" y2="13" /><polygon
-            points="22 2 15 22 11 13 2 9 22 2"
-        /></svg
+{#if isSpinnerVisible}
+    <div class="spinner" in:fade={{ delay: 200, duration: 500 }}>
+        <Spinner />
+    </div>
+{:else}
+    <div
+        class="send-to-kindle-container"
+        aria-describedby="send-to-kindle-tooltip"
+        role="button"
+        on:mouseenter={() => (isTooltipVisible = true)}
+        on:mouseleave={() => (isTooltipVisible = false)}
+        on:click={sendToKindle}
+        in:fade={{ delay: 200, duration: 500 }}
     >
-</div>
-{#if isVisible}
+        <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="css-i6dzq1"
+            ><line x1="22" y1="2" x2="11" y2="13" /><polygon
+                points="22 2 15 22 11 13 2 9 22 2"
+            /></svg
+        >
+    </div>
+{/if}
+{#if isTooltipVisible}
     <div role="tooltip" id="send-to-kindle-tooltip">Send to kindle</div>
 {/if}
 
 <style lang="sass">
+    .spinner
+        margin-top: 0.5rem
+        margin-bottom: 0.25rem
     .send-to-kindle-container
         margin-top: 0.5rem
         margin-bottom: 0.25rem
